@@ -1,0 +1,75 @@
+Vagrant.configure("2") do |config|
+
+  config.hostmanager.enabled = true
+  config.hostmanager.manage_host = true
+  config.hostmanager.manage_guest = true
+
+
+  ### Jenkins ###
+  config.vm.define "jenkins01" do |jk01|
+
+    jk01.vm.box = "generic/centos9s"
+    jk01.vm.hostname = "jk01"
+    jk01.vm.network "private_network", ip: "192.168.56.15"
+
+    jk01.vm.provider "virtualbox" do |vb|
+      vb.memory = "2048"
+      vb.cpus = 2
+    end
+  end
+  ### SonarQube ###
+  config.vm.define "sonar01" do |sn01|
+
+    sn01.vm.box = "generic/centos9s"
+    sn01.vm.hostname = "sn01"
+    sn01.vm.network "private_network", ip: "192.168.56.16"
+
+    sn01.vm.provider "virtualbox" do |vb|
+      vb.memory = "4096"
+      vb.cpus = 2
+    end
+
+  end
+
+
+  ### Nexus ###
+  config.vm.define "nexus01" do |nx01|
+
+    nx01.vm.box = "generic/centos9s"
+    nx01.vm.hostname = "nx01"
+    nx01.vm.network "private_network", ip: "192.168.56.17"
+
+    nx01.vm.provider "virtualbox" do |vb|
+      vb.memory = "3072"
+      vb.cpus = 2
+    end
+
+  end
+
+  ### Monitoring - Prometheus - Grafana ###
+   config.vm.define "prometheus01" do |pt01|
+
+    pt01.vm.box = "ubuntu/jammy64"
+    pt01.vm.hostname = "pt01"
+    pt01.vm.network "private_network", ip: "192.168.56.18"
+
+    pt01.vm.provider "virtualbox" do |vb|
+      vb.memory = "2048"
+      vb.cpus = 2
+    end
+
+  end
+
+  config.vm.define "grafana01" do |gr01|
+
+    gr01.vm.box = "ubuntu/jammy64"
+    gr01.vm.hostname = "gr01"
+    gr01.vm.network "private_network", ip: "192.168.56.19"
+
+    gr01.vm.provider "virtualbox" do |vb|
+      vb.memory = "2048"
+      vb.cpus = 2
+    end
+
+  end 
+end
